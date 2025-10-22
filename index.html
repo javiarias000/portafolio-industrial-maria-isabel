@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio | Ing. Diseño Industrial - M.I. Villena</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        /* Estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0f0f23; /* Fondo Oscuro Profundo */
+            color: #e4e4e7; /* Texto Claro */
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Variables de color clave para Diseño Industrial */
+        :root {
+            --primary-color: #00bcd4; /* Cian: Innovación y Tecnología */
+            --secondary-color: #ff9800; /* Naranja: Creatividad y Prototipado */
+            --text-light: #e4e4e7;
+            --text-dark: #20203a;
+            --bg-dark: #0f0f23;
+            --bg-light: #20203a;
+        }
+
+        /* Estilo para la barra de navegación */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            z-index: 1000;
+            padding: 20px 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-link a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-link a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Estilo del botón de descarga */
+        .download-btn {
+            background: var(--secondary-color);
+            color: var(--bg-dark);
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .download-btn:hover {
+            background: #ffb74d; /* Tono más claro de naranja */
+        }
+
+        /* HERO Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%);
+            padding-top: 80px; /* Espacio para el navbar fijo */
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+
+        .hero-content h1 span {
+            color: var(--primary-color);
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 30px;
+        }
+
+        /* MAIN CONTENT Wrapper */
+        .main-content {
+            padding-top: 80px; /* Asegura que el contenido no se oculte detrás del navbar */
+        }
+
+        /* SECTIONS generales */
+        section {
+            padding: 100px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--secondary-color);
+            margin: 10px auto 0;
+        }
+
+        /* ABOUT Section */
+        #about {
+            background: var(--bg-light);
+            display: flex;
+            align-items: flex-start;
+            gap: 60px;
+        }
+
+        .about-content-wrapper {
+            display: flex;
+            align-items: flex-start;
+            gap: 60px;
+        }
+        
+        .profile-image {
+            width: 300px;
+            height: 300px;
+            min-width: 300px;
+            background: #444; /* Placeholder */
+            border-radius: 10px;
+            object-fit: cover;
+            border: 5px solid var(--primary-color);
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        .about-text p {
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .education-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .education-list li {
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        /* SKILLS Section */
+        #skills {
+            background: var(--bg-dark);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .skill-group h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 5px;
+        }
+
+        .skill-item {
+            margin-bottom: 15px;
+        }
+
+        .skill-item p {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .skill-bar {
+            background: rgba(255, 255, 255, 0.1);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: var(--primary-color);
+            width: 0; /* Inicialmente 0, animado por JS */
+            transition: width 1.5s ease-out;
+            border-radius: 4px;
+        }
+
+        /* PORTFOLIO Section */
+        #portfolio {
+            background: var(--bg-light);
+            text-align: center;
+        }
+
+        .filters {
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            border: 1px solid var(--primary-color);
+            padding: 10px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-color);
+            color: var(--bg-dark);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-item {
+            background: var(--bg-dark);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: left;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        .project-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .project-info {
+            padding: 20px;
+        }
+
+        .project-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .project-info p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* CONTACT Section */
+        #contact {
+            background: var(--bg-dark);
+            text-align: center;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 40px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .contact-item .icon {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--bg-light);
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .nav-container {
+                padding: 0 20px;
+            }
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            #about {
+                flex-direction: column;
+                align-items: center;
+            }
+            .profile-image {
+                margin-bottom: 30px;
+            }
+            .contact-info {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+        
+        /* CSS para la impresión a PDF (html2pdf) */
+        @media print {
+            .navbar, .filters, .download-btn, footer {
+                display: none !important;
+            }
+            .main-content {
+                padding-top: 0 !important;
+            }
+            body {
+                font-size: 10pt;
+                color: #000;
+                background: #fff;
+            }
+            h2 {
+                color: #20203a !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">ING. DISEÑO INDUSTRIAL</a>
+            <ul class="nav-links">
+                <li class="nav-link"><a href="#about">Perfil</a></li>
+                <li class="nav-link"><a href="#skills">Habilidades</a></li>
+                <li class="nav-link"><a href="#portfolio">Proyectos</a></li>
+                <li class="nav-link"><a href="#contact">Contacto</a></li>
+            </ul>
+            <button id="download-pdf" class="download-btn">📄 Descargar PDF</button>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <p style="color: var(--secondary-color); font-weight: 600;">Ingeniera en Diseño Industrial | PUCESA</p>
+                <h1>VILLENA CARDENAS MARIA ISABEL</h1>
+                <p>Innovación de producto, diseño de espacios funcionales y acústica ambiental.</p>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2>Perfil Profesional</h2>
+            
+            <div class="about-content-wrapper">
+                
+                <img src="/Users/javi000/Downloads/Isabel.jpg" alt="Foto de perfil de María Isabel Villena" class="profile-image">
+
+                <div class="about-text">
+                    <h3>Ingeniera en Diseño Industrial con Enfoque en Ergonomía y Sostenibilidad</h3>
+                    <p>Ingeniera en Diseño Industrial titulada por la **PONTIFICIA UNIVERSIDAD CATÓLICA DEL ECUADOR (PUCESA)**. Con una sólida formación en el proceso de diseño integral, desde la investigación de usuario y conceptualización hasta la prototipación avanzada. Experiencia probada en la aplicación de la ergonomía, análisis de materiales y el desarrollo de soluciones técnicas y estéticas que resuelven problemas complejos en el ámbito del mobiliario y la optimización de espacios funcionales. Mi enfoque es crear productos que sean sostenibles, funcionales y mejoren significativamente la experiencia del usuario.</p>
+                    <ul class="education-list">
+                        <li>**Título:** Ingeniera en Diseño Industrial, PUCESA (Registro SENESCYT: 17 de enero de 2024).</li>
+                        <li>**Áreas de Especialización:** Acústica Ambiental, Modelado 3D de Precisión, Diseño de Mobiliario, Gestión de Proyectos de Prototipado.</li>
+                    </ul>
+                </div>
+            </div>
+            </section>
+
+        <section id="skills">
+            <h2>Habilidades Técnicas, Diseño de Modas, Objetos, Interior, Publicitario</h2>
+            <div class="skills-grid">
+                
+                <div class="skill-group">
+                    <h3>Modelado y Prototipado</h3>
+                    <div class="skill-item">
+                        <p>Modelado 3D (ArchiCAD, Cinema4D, 3dMax)</p>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 95%;" data-level="95"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <p>Renderizado (Cinema4D)</p>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 85%;" data-level="85"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <p>Dibujo Técnico y Planimetría (AutoCad)</p>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 90%;" data-level="90"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <p>Impresión 3D y Maquetismo</p>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 80%;" data-level="80"></div></div>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <h3>Software y Herramientas</h3>
+                    <div class="skill-item">
+                        <p>Suite Adobe (Photoshop, Illustrator)</p>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 90%;" data-level="90"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <p>Diseño Conceptual (Sketching Digital)</p>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 85%;" data-level="85"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <p>Análisis de Factor Humano (Ergonomía)</p>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 88%;" data-level="88"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <p>Análisis Acústico (Simulación)</p>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 82%;" data-level="82"></div></div>
+                    </div>
+                </div>
+
+                <div class="skill-group">
+                    <h3>Competencias Clave</h3>
+                    <div class="skill-item">
+                        <p>Gestión de Proyectos de Diseño</p>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 80%;" data-level="80"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <p>Pensamiento Crítico y Diseño Centrado en el Usuario</p>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 92%;" data-level="92"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <p>Trabajo Colaborativo y Comunicación Técnica</p>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 85%;" data-level="85"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <p>Adaptabilidad y Solución de Problemas</p>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 95%;" data-level="95"></div></div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+        <section id="portfolio">
+            <h2>Proyectos Destacados</h2>
+            
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="tesis">Tesis</button>
+                <button class="filter-btn" data-filter="mobiliario">Mobiliario</button>
+                <button class="filter-btn" data-filter="render">Renderizado</button>
+            </div>
+
+            <div class="gallery" id="project-gallery">
+                </div>
+        </section>
+
+        <section id="contact">
+            <h2>Contáctame</h2>
+            <p>Estoy disponible para nuevos desafíos y proyectos colaborativos.</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="icon">📧</span>
+                    <p>isavillenacardenas@gmail.com</p>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">📱</span>
+                    <p>(+593) 987738663</p>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">📍</span>
+                    <p>Ambato, Ecuador</p>
+                </div>
+            </div>
+        </section>
+
+    </div> <footer>
+        <p>&copy; 2025 VILLENA CARDENAS MARIA ISABEL. Ing. Diseño Industrial - PUCESA. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        
+        // ----------------------------------------------------
+        // 1. DATA DE PROYECTOS (AQUÍ DEBES ACTUALIZAR TUS IMÁGENES)
+        // Usando rutas RELATIVAS a la carpeta 'imagenes_portafolio'
+        // ----------------------------------------------------
+        const projects = [
+            { 
+                title: "Diseño y Prototipado de un Auditorio", 
+                category: "tesis mobiliario", 
+                description: "Diseño y modelado 3D de un módulo de atención para la presentación de tesis, optimizando la interacción en el espacio de exposición de la PUCESA. Incluye renders isométricos.", 
+                // CRÍTICO: Usa la ruta relativa a la carpeta de imágenes que creaste
+                img: "/Users/javi000/Documents/Portafolio/portafolio/aula teórica material acustico3piso.jpg" 
+            },
+            { 
+                title: "Diseño y distribución de un baño con secunciación", 
+                category: "tesis render", 
+                description: "Vistas en planta de la distribución espacial, mostrando la integración de elementos de diseño industrial y la planificación de flujos.", 
+                img: "/Users/javi000/Documents/Portafolio/portafolio/Captura de pantalla 2017-01-24 a las 12.22.40.png" 
+            },
+            { 
+                title: "Diseño ergonomico de un paraguas", 
+                category: "tesis", 
+                description: "Paraguas minimalista de líneas puras, ultraligero y compacto, con estructura resistente al viento y materiales sostenibles, pensado para funcionalidad y estilo urbano.", 
+                img: "/Users/javi000/Documents/Portafolio/portafolio/Captura de Pantalla 2025-10-22 a la(s) 13.23.54.png" 
+            },
+            { 
+                title: "Dibujo de Ojo", 
+                category: "tesis mobiliario", 
+                description: "Diseño de personalizado en PhotoShop e Ilustrador, con texturas, efectos y sombras.", 
+                img: "/Users/javi000/Documents/Portafolio/portafolio/Captura de pantalla 2017-01-31 a las 12.34.03.png" 
+            },
+            { 
+                title: "Modelado en 3D", 
+                category: "render", 
+                description: "Renderizado avanzado mostrando la aplicación de texturas, iluminación y materiales en un entorno interior con alto detalle visual.", 
+                img: "/Users/javi000/Documents/Portafolio/portafolio/Captura de pantalla 2017-02-01 a las 16.42.18.png" 
+            },
+            { 
+                title: "Prototipo de Mobiliario Modular", 
+                category: "mobiliario", 
+                description: "Desarrollo conceptual y prototipado virtual de un sistema de estantería modular que se adapta a diferentes configuraciones de espacio, con demostración de lampara original, en un ambiente. ", 
+                img: "/Users/javi000/Documents/Portafolio/portafolio/Captura de pantalla 2017-02-06 a las 13.54.22.png" 
+            },
+            { 
+                title: "Manzana Vectorizada Realista", 
+                category: "mobiliario", 
+                description: "Imitación de una manzana con la aplicación del programa Ilustrador, con la herramienta malla y varios filtros hasta llegar al realismo.", 
+                img: "/Users/javi000/Documents/Portafolio/portafolio/Captura de pantalla 2017-01-31 a las 05.51.35.png" 
+            },
+            { 
+                title: "Manzana Vectorizada Realista", 
+                category: "mobiliario", 
+                description: "Imitación de una manzana con la aplicación del programa Ilustrador, con la herramienta malla y varios filtros hasta llegar al realismo. ", 
+                img: "/Users/javi000/Documents/Portafolio/portafolio/Captura de pantalla 2017-01-31 a las 05.52.15.png" 
+            },
+            { 
+                title: "Diseño de afiches para Clientes", 
+                category: "mobiliario", 
+                description: "Fiesta de la Diablada Pillareña - Publos tradicionales. Utilizando PhothoShop e Ilustrador, con la variedad de texturas y sombras. ", 
+                img: "/Users/javi000/Documents/Portafolio/portafolio/Captura de pantalla 2017-01-31 a las 06.00.12.png" 
+            },
+            // Se han incluido los archivos más representativos. Si deseas añadir más, sigue el formato:
+            // { title: "Nuevo Proyecto", category: "render", description: "Descripción corta del proyecto.", img: "imagenes_portafolio/nombre-de-tu-archivo.jpg" },
+        ];
+
+        // ----------------------------------------------------
+        // 2. FUNCIONALIDAD DE LA GALERÍA Y FILTROS
+        // ----------------------------------------------------
+        const gallery = document.getElementById('project-gallery');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        function renderGallery(filter = 'all') {
+            gallery.innerHTML = '';
+            
+            const filteredProjects = projects.filter(project => {
+                return filter === 'all' || project.category.includes(filter);
+            });
+
+            filteredProjects.forEach((project, index) => {
+                const item = document.createElement('div');
+                item.className = `project-item ${project.category} visible`;
+                
+                // Usamos la ruta relativa definida en la data
+                item.innerHTML = `
+                    <img src="${project.img}" alt="${project.title}" loading="lazy">
+                    <div class="project-info">
+                        <h3>${project.title}</h3>
+                        <p>${project.description}</p>
+                    </div>
+                `;
+                gallery.appendChild(item);
+            });
+        }
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Actualiza la clase activa
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                // Vuelve a renderizar la galería con el filtro seleccionado
+                renderGallery(this.getAttribute('data-filter'));
+            });
+        });
+
+        // ----------------------------------------------------
+        // 3. FUNCIONALIDAD DE DESCARGA A PDF 
+        // ----------------------------------------------------
+        // ----------------------------------------------------
+        // 3. FUNCIONALIDAD DE DESCARGA A PDF (CORRECCIÓN FINAL)
+        // ----------------------------------------------------
+        document.getElementById('download-pdf').addEventListener('click', () => {
+          // CLAVE 1: Convertimos solo el contenido principal (.main-content), no el navbar fijo.
+          const element = document.querySelector('.main-content'); 
+        
+          const options = {
+            margin: 0.3,                
+            filename: 'Portafolio_Ingeniera_Villena.pdf', // Nombre de archivo correcto
+            image: { type: 'jpeg', quality: 1.0 }, 
+            
+            // CLAVE 2: Quitamos useCORS y ajustamos el scale
+            html2canvas: { scale: 2, logging: true, scrollY: 0 }, 
+            
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+          };
+        
+          // Ocultar elementos de la interfaz para que no aparezcan en el PDF
+          document.querySelector('.navbar').style.display = 'none';
+          document.querySelector('footer').style.display = 'none';
+          document.getElementById('download-pdf').style.display = 'none';
+          
+          html2pdf().set(options).from(element).save()
+            .then(() => {
+                // Volver a mostrar elementos después de la descarga (o fallo)
+                document.querySelector('.navbar').style.display = 'block';
+                document.querySelector('footer').style.display = 'block';
+                document.getElementById('download-pdf').style.display = 'block';
+            });
+        });
+
+        // Inicializar galería
+        renderGallery();
+    </script>
+</body>
+</html>
