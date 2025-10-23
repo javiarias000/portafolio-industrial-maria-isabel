@@ -338,11 +338,3 @@ h2::after {
 footer {
     background: var(--bg-light);
 
-    @media (max-width: 900px) {
-        /* ... */
-        #about {
-            flex-direction: column; /* Esto hace que la foto y el texto se apilen */
-            align-items: center;
-        }
-        /* ... */
-    }
