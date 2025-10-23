@@ -1,0 +1,343 @@
+/* Estilos base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #0f0f23; /* Fondo Oscuro Profundo */
+    color: #e4e4e7; /* Texto Claro */
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* Variables de color clave para Diseño Industrial */
+:root {
+    --primary-color: #00bcd4; /* Cian: Innovación y Tecnología */
+    --secondary-color: #ff9800; /* Naranja: Creatividad y Prototipado */
+    --text-light: #e4e4e7;
+    --text-dark: #20203a;
+    --bg-dark: #0f0f23;
+    --bg-light: #20203a;
+}
+
+/* Estilo para la barra de navegación */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(15, 15, 35, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    z-index: 1000;
+    padding: 20px 0;
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-link a {
+    text-decoration: none;
+    color: var(--text-light);
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+.nav-link a:hover {
+    color: var(--primary-color);
+}
+
+/* Estilo del botón de descarga */
+.download-btn {
+    background: var(--secondary-color);
+    color: var(--bg-dark);
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.download-btn:hover {
+    background: #ffb74d; /* Tono más claro de naranja */
+}
+
+/* HERO Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%);
+    padding-top: 80px; /* Espacio para el navbar fijo */
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    color: var(--text-light);
+}
+
+.hero-content h1 span {
+    color: var(--primary-color);
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 30px;
+}
+
+/* MAIN CONTENT Wrapper */
+.main-content {
+    padding-top: 80px; /* Asegura que el contenido no se oculte detrás del navbar */
+}
+
+/* SECTIONS generales */
+section {
+    padding: 100px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 60px;
+    color: var(--primary-color);
+    position: relative;
+}
+
+h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--secondary-color);
+    margin: 10px auto 0;
+}
+
+/* ABOUT Section */
+#about {
+    background: var(--bg-light);
+    /* Se remueven las propiedades flex directas, ahora van en .about-content-wrapper */
+}
+
+.about-content-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 60px;
+}
+
+.profile-image {
+    width: 300px;
+    height: 300px;
+    min-width: 300px;
+    background: #444; /* Placeholder */
+    border-radius: 10px;
+    object-fit: cover;
+    border: 5px solid var(--primary-color);
+}
+
+.about-text {
+    flex: 1;
+}
+
+.about-text h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: var(--text-light);
+}
+
+.about-text p {
+    line-height: 1.8;
+    margin-bottom: 20px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.education-list {
+    list-style: none;
+    margin-top: 20px;
+}
+
+.education-list li {
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+/* SKILLS Section */
+#skills {
+    background: var(--bg-dark);
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.skill-group h3 {
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 5px;
+}
+
+.skill-item {
+    margin-bottom: 15px;
+}
+
+.skill-item p {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.skill-bar {
+    background: rgba(255, 255, 255, 0.1);
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.skill-progress {
+    height: 100%;
+    background: var(--primary-color);
+    width: 0; /* Inicialmente 0, animado por JS */
+    transition: width 1.5s ease-out;
+    border-radius: 4px;
+}
+
+/* PORTFOLIO Section */
+#portfolio {
+    background: var(--bg-light);
+    text-align: center;
+}
+
+.filters {
+    margin-bottom: 40px;
+}
+
+.filter-btn {
+    background: var(--bg-dark);
+    color: var(--text-light);
+    border: 1px solid var(--primary-color);
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.filter-btn:hover, .filter-btn.active {
+    background: var(--primary-color);
+    color: var(--bg-dark);
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.project-item {
+    background: var(--bg-dark);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: left;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.project-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.project-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+}
+
+.project-info {
+    padding: 20px;
+}
+
+.project-info h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.project-info p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+/* CONTACT Section */
+#contact {
+    background: var(--bg-dark);
+    text-align: center;
+}
+
+.contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 40px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+.contact-item .icon {
+    color: var(--secondary-color);
+    font-size: 1.5rem;
+}
+
+/* FOOTER */
+footer {
+    background: var(--bg-light);
+
+    @media (max-width: 900px) {
+        /* ... */
+        #about {
+            flex-direction: column; /* Esto hace que la foto y el texto se apilen */
+            align-items: center;
+        }
+        /* ... */
+    }
