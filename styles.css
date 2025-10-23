@@ -146,22 +146,25 @@ h2::after {
     /* Se remueven las propiedades flex directas, ahora van en .about-content-wrapper */
 }
 
-.about-vertical-content {
-    max-width: 900px; /* Limita el ancho del contenido principal */
-    margin: 0 auto;   /* Centra todo el contenido de la sección */
-    text-align: center; /* Centra la imagen y el texto a nivel de bloque */
+.about-content-wrapper {
+    /* Eliminamos Flexbox. Se convierte en un contenedor vertical. */
+    max-width: 900px; /* Limita el ancho del contenido para que no sea toda la página */
+    margin: 0 auto;   /* Centra el bloque contenedor en la pantalla */
+    padding: 60px 0; /* Agrega espacio interno si es necesario */
 }
 
 .profile-image {
     width: 300px;
     height: 300px;
-    margin: 0 auto 40px; /* Centra la imagen horizontalmente y añade margen inferior */
-    display: block;      /* Importante para que 'margin: auto' funcione */
     min-width: 300px;
     background: #444; 
     border-radius: 10px;
     object-fit: cover;
     border: 5px solid var(--primary-color);
+    
+    /* REGLAS CLAVE PARA EL CENTRADO VERTICAL */
+    display: block;      /* CRÍTICO: Debe ser un elemento de bloque para usar margin: auto */
+    margin: 0 auto 40px; /* Centra horizontalmente y añade margen debajo de la foto */
 }
 
 .about-text {
